@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>Todos los empleados</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all" 
+          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+     <!-- Bootstrap CSS v5.2.1 -->
+     <link
+     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+     rel="stylesheet"
+     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+     crossorigin="anonymous"
+ />
+  </head>
+
+  <body>
+
+  
+    <h1 class="text-center mt-4">Listado de empleados</h1>
+    <p class="text-center" th:text="|La fecha es: ${today}|"></p>
+    <!--Asi se podria realizar un operador ternario dentro de Thymleaf-->
+    <p class="text-center" th:text="${user} ?: 'No se encontro la variable usuario'"></p>
+    
+
+    <div class="container mt-4">
+        <div class="table-responsive">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Salario</th>
+                        <th scope="col">Domicilio</th>
+                        <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${empleados.empty}">
+                        <td colspan="4">Sin empleados aún...</td>
+                    </tr>
+                    <tr class="" th:each="empleado: ${empleados}">
+                        <td th:text="${empleado.nombre}"></td>
+                        <td th:text="${empleado.email}"></td>
+                        <td th:text="${empleado.salario}"></td>
+                        <td th:text="${empleado.direccion}"></td>
+                        <td>
+                            
+                            <a th:href="@{/empleado/{id}(id=${empleado.id})}" class="btn btn-success">Editar</a>
+                            
+                            <form th:action="@{/borrar-docente/{id}(id=${empleado.id})}" method="post">
+                                <input type="number" name="id" id="" th:value="${empleado.id}" hidden>
+                                <input class="btn btn-primary" type="submit" value="Eliminar">
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+  
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+        ></script>
+  </body>
+
+</html>
+
+
+
+
+
+
